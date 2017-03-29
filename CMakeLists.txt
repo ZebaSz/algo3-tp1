@@ -1,13 +1,16 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 2.8)
 project(algo3_tp1)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES src/backtrack.cpp src/backtrack.h)
+set(SOURCE_FILES
+        src/Backtrack.cpp src/Backtrack.h
+        src/ImprovedBacktrack.cpp src/ImprovedBacktrack.h
+        src/Solver.h src/Utils.h)
 
 set(MAIN_FILE main.cpp)
 
-set(TEST_FILES)
+set(TEST_FILES test/BacktrackTest.cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wno-long-long -pedantic -Wno-variadic-macros")
 
