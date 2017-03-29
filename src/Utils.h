@@ -8,7 +8,7 @@
 #include <iostream>
 #include <sstream>
 
-#define CUR_LOG_LEVEL 0
+#define CUR_LOG_LEVEL 1
 
 typedef int paintColor;
 enum COLORS {RED, BLUE, NONE};
@@ -19,6 +19,13 @@ enum LOG_LEVEL {TRACE, DEBUG, INFO, WARN, ERROR};
 
 class Utils {
 public:
+    template<typename T>
+    static std::string toString (T t) {
+        std::stringstream temp;
+        temp << t;
+        return temp.str();
+    }
+
     template<typename T>
     static std::string itToStr(const T &iterable) {
         std::stringstream stream;

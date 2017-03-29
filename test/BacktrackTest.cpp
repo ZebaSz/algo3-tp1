@@ -11,8 +11,11 @@ protected:
     virtual void SetUp() {
         solver = new ImprovedBacktrack();
 
-        ints1 = {0,7,1,2,2,1,5,0};
-        ints2 = {3,11,0,1,3,5,2,4,1,0,9,3};
+        int intArr1[8] = {0,7,1,2,2,1,5,0};
+        int intArr2[12] = {3,11,0,1,3,5,2,4,1,0,9,3};
+
+        ints1.insert(ints1.begin(), intArr1, intArr1 + 8);
+        ints2.insert(ints2.begin(), intArr2, intArr2 + 12);
     }
 
     virtual void TearDown() {

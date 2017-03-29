@@ -5,7 +5,7 @@ size_t ImprovedBacktrack::getSolution(const std::vector<int>& list) const {
     std::list<node> prefix;
     size_t best = list.size();
     size_t solution = getSubsolutionWithTrim(prefix, list, 0, best);
-    Utils::log("Found best solution: " + std::to_string(solution), LOG_LEVEL::INFO);
+    Utils::log("Found best solution: " + Utils::toString(solution), INFO);
     return solution;
 }
 
@@ -17,22 +17,22 @@ size_t ImprovedBacktrack::getSubsolutionWithTrim(std::list<node> &prefix,
         if(prefix.size() == list.size()) {
             solution = cur;
             if(solution < best) {
-                Utils::log("Found a better solution with " + std::to_string(solution) + " non-painted elements: \n"
-                           + Utils::itToStr(prefix), LOG_LEVEL::DEBUG);
+                Utils::log("Found a better solution with " + Utils::toString(solution) + " non-painted elements: \n"
+                           + Utils::itToStr(prefix), DEBUG);
                 best = solution;
             }
         } else if(cur <= best) {
-            stepForwards(prefix, list, COLORS::RED);
+            stepForwards(prefix, list, RED);
             size_t subsolutionRed = getSubsolutionWithTrim(prefix, list, cur, best);
             solution = subsolutionRed < solution ? subsolutionRed : solution;
             if(solution == 0) {
-                Utils::log("Found OPTIMAL solution; trimming", LOG_LEVEL::INFO);
+                Utils::log("Found OPTIMAL solution; trimming", INFO);
             } else {
-                stepForwards(prefix, list, COLORS::BLUE);
+                stepForwards(prefix, list, BLUE);
                 size_t subsolutionBlue = getSubsolutionWithTrim(prefix, list, cur, best);
                 solution = subsolutionBlue < solution ? subsolutionBlue : solution;
                 if (solution == 0) {
-                    Utils::log("Found OPTIMAL solution; trimming", LOG_LEVEL::INFO);
+                    Utils::log("Found OPTIMAL solution; trimming", INFO);
                 } else {
                     stepForwards(prefix, list, NONE);
                     size_t subsolutionNone = getSubsolutionWithTrim(prefix, list, cur + 1, best);
@@ -40,10 +40,10 @@ size_t ImprovedBacktrack::getSubsolutionWithTrim(std::list<node> &prefix,
                 }
             }
         } else {
-            Utils::log("Discarding long prefix: " + Utils::itToStr(prefix), LOG_LEVEL::TRACE);
+            Utils::log("Discarding long prefix: " + Utils::itToStr(prefix), TRACE);
         }
     } else {
-        Utils::log("Discarding invalid prefix: " + Utils::itToStr(prefix), LOG_LEVEL::TRACE);
+        Utils::log("Discarding invalid prefix: " + Utils::itToStr(prefix), TRACE);
     }
     stepBackwards(prefix);
     return solution;

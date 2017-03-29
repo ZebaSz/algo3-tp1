@@ -15,9 +15,9 @@ protected:
 
         friend std::ostream& operator<<(std::ostream& os, const node& n) {
             os << "(" << n.elem << "-";
-            if(n.color == COLORS::RED) {
+            if(n.color == RED) {
                 os << "R";
-            } else if(n.color == COLORS::BLUE) {
+            } else if(n.color == BLUE) {
                 os << "B";
             } else {
                 os << "N";
