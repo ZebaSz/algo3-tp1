@@ -6,7 +6,7 @@ set(SOURCE_FILES
         src/ImprovedBacktrack.cpp src/ImprovedBacktrack.h
         src/Solver.h src/Utils.h)
 
-set(MAIN_FILE main.cpp)
+set(MAIN_FILE src/main.cpp)
 
 set(TEST_FILES test/BacktrackTest.cpp)
 

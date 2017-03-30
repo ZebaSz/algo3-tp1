@@ -1,21 +1,16 @@
-//
-// Created by sebastianszperling on 27/03/17.
-//
-
 #ifndef ALGO3_TP1_UTILS_H
 #define ALGO3_TP1_UTILS_H
 
 #include <iostream>
 #include <sstream>
 
-#define CUR_LOG_LEVEL 1
-
 typedef int paintColor;
 enum COLORS {RED, BLUE, NONE};
 
 typedef int logLevel;
-enum LOG_LEVEL {TRACE, DEBUG, INFO, WARN, ERROR};
+enum LOG_LEVEL {TRACE, DEBUG, INFO, WARN, ERROR, OFF};
 
+#define CUR_LOG_LEVEL OFF
 
 class Utils {
 public:

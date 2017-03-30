@@ -30,7 +30,8 @@ protected:
         paintColor color;
     };
 
-    virtual size_t getSubsolution(std::list<node> &prefix, const std::vector<int> &list) const;
+    size_t getSubsolution(std::list<node> &prefix, const std::vector<int> &list,
+                          int lastRed, int lastBlue, size_t cur) const;
     void stepForwards(std::list<node>&, const std::vector<int>&, paintColor) const;
     void stepBackwards(std::list<node>&) const;
     bool isValidPrefix(const std::list<node>&) const;
