@@ -11,11 +11,12 @@ protected:
 
     virtual void SetUp() {
         AbstractTest::SetUp();
+        best = 0;
     }
 
     virtual void recordResult() {
         clock_t last = end - begin;
-        if(last < best) {
+        if(last < best || best == 0) {
             best = last;
         }
     }
