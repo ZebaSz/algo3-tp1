@@ -29,15 +29,19 @@ protected:
     }
 
     virtual void TearDown() {
-        delete solver;
+        if(solver) {
+            delete solver;
+        }
     }
 
     std::vector<int> generateRandomVector(unsigned int minSize) {
+        std::srand(std::time(NULL));
         unsigned int size = std::rand() % 10 + minSize;
         return getRandomVectorOfSize(size);
     }
 
     std::vector<int> getRandomVectorOfSize(unsigned int size) {
+        std::srand(std::time(NULL));
         std::vector<int> randVector;
         for (unsigned int i = 0; i < size; ++i) {
             randVector.push_back(std::rand());

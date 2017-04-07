@@ -10,9 +10,14 @@ protected:
     clock_t end;
     clock_t best;
 
+    std::vector<int> inputRandBig;
+    std::vector<int> inputRandSmall;
+
     virtual void SetUp() {
         AbstractTest::SetUp();
         best = 0;
+        inputRandBig = getRandomVectorOfSize(30);
+        inputRandSmall = getRandomVectorOfSize(10);
     }
 
     virtual void recordResult() {
@@ -22,13 +27,17 @@ protected:
         }
     }
 
-    virtual void TearDown() {
+    virtual void printResult() {
         double time = double(best)/CLOCKS_PER_SEC;
         std::string problem = typeid(*this).name();
         problem = problem.substr(problem.find('_', 0) + 1);
         problem = problem.substr(0, problem.find('_', 0));
         printf("Problem: %s;\tSolver: %s;\tbest time: %f\n\n",
                problem.c_str(), typeid(*solver).name(), time);
+    }
+
+    virtual void TearDown() {
+        printResult();
         AbstractTest::TearDown();
     }
 };
@@ -55,55 +64,73 @@ protected:
 };
 
 TEST_F(BacktrackPerfTest, randOnce) {
-    std::vector<int> inputRand = getRandomVectorOfSize(20);
     begin = clock();
-    solver->getSolution(inputRand);
+    solver->getSolution(inputRandBig);
     end = clock();
     recordResult();
 }
 
 TEST_F(BacktrackPerfTest, randRepeat) {
-    std::vector<int> inputRand = getRandomVectorOfSize(10);
     for (int i = 0; i < REPETITIONS; ++i) {
         begin = clock();
-        solver->getSolution(inputRand);
+        solver->getSolution(inputRandSmall);
         end = clock();
         recordResult();
     }
 }
 
 TEST_F(ImprovedBacktrackPerfTest, randOnce) {
-    std::vector<int> inputRand = getRandomVectorOfSize(20);
     begin = clock();
-    solver->getSolution(inputRand);
+    solver->getSolution(inputRandBig);
     end = clock();
     recordResult();
 }
 
 TEST_F(ImprovedBacktrackPerfTest, randRepeat) {
-    std::vector<int> inputRand = getRandomVectorOfSize(10);
     for (int i = 0; i < REPETITIONS; ++i) {
         begin = clock();
-        solver->getSolution(inputRand);
+        solver->getSolution(inputRandSmall);
         end = clock();
         recordResult();
     }
 }
 
-TEST_F(DynamicPerfTest, randOnce) {
-    std::vector<int> inputRand = getRandomVectorOfSize(20);
+TEST_F(DynamicPerfTest, randOnce) {;
     begin = clock();
-    solver->getSolution(inputRand);
+    solver->getSolution(inputRandBig);
     end = clock();
     recordResult();
 }
 
 TEST_F(DynamicPerfTest, randRepeat) {
-    std::vector<int> inputRand = getRandomVectorOfSize(10);
     for (int i = 0; i < REPETITIONS; ++i) {
         begin = clock();
-        solver->getSolution(inputRand);
+        solver->getSolution(inputRandSmall);
         end = clock();
         recordResult();
     }
+}
+
+TEST_F(BacktrackPerfTest, randOnceAll) {
+    begin = clock();
+    size_t solutionBacktrack = solver->getSolution(inputRandBig);
+    end = clock();
+    recordResult();
+    printResult();
+    delete solver;
+    solver = new ImprovedBacktrack();
+    begin = clock();
+    size_t solutionImpBtrack = solver->getSolution(inputRandBig);
+    end = clock();
+    recordResult();
+    printResult();
+    delete solver;
+    solver = new Dynamic();
+    begin = clock();
+    size_t solutionDynamic = solver->getSolution(inputRandBig);
+    end = clock();
+    recordResult();
+
+    ASSERT_EQ(solutionBacktrack, solutionImpBtrack);
+    ASSERT_EQ(solutionBacktrack, solutionDynamic);
 }

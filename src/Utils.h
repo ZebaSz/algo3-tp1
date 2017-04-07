@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 typedef int paintColor;
 enum COLORS {RED, BLUE, NONE};
@@ -37,6 +38,8 @@ namespace Utils {
     }
 
     void log(std::string message, logLevel level);
+
+    const std::vector<int> getListFromInput();
 };
 
 
