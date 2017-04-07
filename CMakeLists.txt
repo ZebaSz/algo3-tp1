@@ -4,12 +4,13 @@ project(algo3_tp1)
 set(SOURCE_FILES
         src/Backtrack.cpp src/Backtrack.h
         src/ImprovedBacktrack.cpp src/ImprovedBacktrack.h
-        src/Solver.h src/Utils.h)
+        src/Solver.h src/Utils.h src/Dynamic.cpp src/Dynamic.h src/Utils.cpp)
 
 set(MAIN_FILE src/main.cpp)
 
 set(TEST_FILES test/AbstractTest.h
         test/BacktrackTest.cpp
+        test/DynamicTest.cpp
         test/ImprovedBacktrackTest.cpp)
 
 set(PERF_FILES test/PerformanceTest.cpp)
@@ -51,3 +52,5 @@ add_executable(correrTests ${SOURCE_FILES} ${TEST_FILES})
 add_executable(correrTestsPerf ${SOURCE_FILES} ${TEST_FILES} ${PERF_FILES})
 target_link_libraries(correrTests gtest_main gtest)
 target_link_libraries(correrTestsPerf gtest_main gtest)
+
+add_executable(algo3-tp1 ${SOURCE_FILES} ${MAIN_FILE})

@@ -34,7 +34,6 @@ protected:
                           int lastRed, int lastBlue, size_t cur) const;
     void stepForwards(std::list<node>&, const std::vector<int>&, paintColor) const;
     void stepBackwards(std::list<node>&) const;
-    bool isValidPrefix(const std::list<node>&) const;
 };
 
 

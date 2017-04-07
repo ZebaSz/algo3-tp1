@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <ctime>
 #include "../src/Solver.h"
 
 class AbstractTest : public ::testing::Test {
@@ -29,5 +30,18 @@ protected:
 
     virtual void TearDown() {
         delete solver;
+    }
+
+    std::vector<int> generateRandomVector(unsigned int minSize) {
+        unsigned int size = std::rand() % 10 + minSize;
+        return getRandomVectorOfSize(size);
+    }
+
+    std::vector<int> getRandomVectorOfSize(unsigned int size) {
+        std::vector<int> randVector;
+        for (unsigned int i = 0; i < size; ++i) {
+            randVector.push_back(std::rand());
+        }
+        return randVector;
     }
 };

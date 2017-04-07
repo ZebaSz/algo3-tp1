@@ -2,8 +2,6 @@
 #include <vector>
 #include "ImprovedBacktrack.h"
 
-#define LOG_OFF
-
 int main() {
     int n;
     int cur;
