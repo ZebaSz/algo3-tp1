@@ -12,17 +12,16 @@ enum LOG_LEVEL {TRACE, DEBUG, INFO, WARN, ERROR, OFF};
 
 #define CUR_LOG_LEVEL OFF
 
-class Utils {
-public:
+namespace Utils {
     template<typename T>
-    static std::string toString (T t) {
+    std::string toString (T t) {
         std::stringstream temp;
         temp << t;
         return temp.str();
     }
 
     template<typename T>
-    static std::string itToStr(const T &iterable) {
+    std::string itToStr(const T &iterable) {
         std::stringstream stream;
         stream << "{";
         typename T::const_iterator it = iterable.begin();
@@ -37,16 +36,7 @@ public:
         return stream.str();
     }
 
-    static void log(std::string message, logLevel level) {
-        if (CUR_LOG_LEVEL <= level) {
-            std::cout << message << std::endl;
-        }
-    }
-
-private:
-    Utils() {
-        // Do not instantiate utils class
-    }
+    void log(std::string message, logLevel level);
 };
 
 
