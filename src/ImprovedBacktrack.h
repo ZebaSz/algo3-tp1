@@ -7,8 +7,8 @@ class ImprovedBacktrack : public Backtrack {
 public:
     size_t getSolution(const std::vector<int>&) const;
 protected:
-    size_t getSubsolutionWithTrim(std::list<node>&, const std::vector<int>&,
-                                  int, int, size_t, size_t&) const;
+    void getSubsolutionWithTrim(const std::vector<int> &,
+                                int, int, size_t, size_t, size_t &) const;
 };
 
 

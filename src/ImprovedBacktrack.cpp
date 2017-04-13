@@ -2,51 +2,38 @@
 #include "ImprovedBacktrack.h"
 
 size_t ImprovedBacktrack::getSolution(const std::vector<int>& list) const {
-    std::list<node> prefix;
     size_t best = list.size();
-    size_t solution = getSubsolutionWithTrim(prefix, list, INT_MIN, INT_MAX, 0, best);
-    Utils::log("Found best solution: " + Utils::toString(solution), INFO);
-    return solution;
+    getSubsolutionWithTrim(list, INT_MIN, INT_MAX, 0, 0, best);
+    Utils::log(INFO, "Found best solution: %d", best);
+    return best;
 }
 
-size_t ImprovedBacktrack::getSubsolutionWithTrim(std::list<node> &prefix,
-                                                 const std::vector<int> &list,
-                                                 int lastRed, int lastBlue,
-                                                 size_t cur, size_t& best) const {
-    size_t solution = list.size();
-    if(prefix.size() == list.size()) {
-        solution = cur;
-        if(solution < best) {
-            Utils::log("Found a better solution with " + Utils::toString(solution) + " non-painted elements: \n"
-                       + Utils::itToStr(prefix), DEBUG);
-            best = solution;
+void ImprovedBacktrack::getSubsolutionWithTrim(const std::vector<int> &list,
+                                               int lastRed, int lastBlue, size_t index,
+                                               size_t cur, size_t &best) const {
+    if(index >= list.size()) {
+        if(cur < best) {
+            Utils::log(DEBUG, "Found a better solution with %d non-painted elements", cur);
+            best = cur;
         }
     } else if(cur <= best) {
-        int next = list[prefix.size()];
+        int next = list[index];
         if(lastRed < next) {
-            stepForwards(prefix, list, RED);
-            size_t subsolutionRed = getSubsolutionWithTrim(prefix, list, next, lastBlue, cur, best);
-            solution = subsolutionRed < solution ? subsolutionRed : solution;
+            getSubsolutionWithTrim(list, next, lastBlue, index + 1, cur, best);
         }
-        if(solution == 0) {
-            Utils::log("Found OPTIMAL solution; trimming", INFO);
+        if(best == 0) {
+            Utils::log(INFO, "Found OPTIMAL solution; trimming");
         } else {
             if(lastBlue > next) {
-                stepForwards(prefix, list, BLUE);
-                size_t subsolutionBlue = getSubsolutionWithTrim(prefix, list, lastRed, next, cur, best);
-                solution = subsolutionBlue < solution ? subsolutionBlue : solution;
+                getSubsolutionWithTrim(list, lastRed, next, index + 1, cur, best);
             }
-            if (solution == 0) {
-                Utils::log("Found OPTIMAL solution; trimming", INFO);
+            if (best == 0) {
+                Utils::log(INFO, "Found OPTIMAL solution; trimming");
             } else {
-                stepForwards(prefix, list, NONE);
-                size_t subsolutionNone = getSubsolutionWithTrim(prefix, list, lastRed, lastBlue, cur + 1, best);
-                solution = subsolutionNone < solution ? subsolutionNone : solution;
+                getSubsolutionWithTrim(list, lastRed, lastBlue, index + 1, cur + 1, best);
             }
         }
     } else {
-        Utils::log("Discarding long prefix: " + Utils::itToStr(prefix), TRACE);
+        Utils::log(TRACE, "Prefix too long; trimming");
     }
-    stepBackwards(prefix);
-    return solution;
 }
