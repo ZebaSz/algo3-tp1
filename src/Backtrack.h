@@ -2,8 +2,6 @@
 #define ALGO3_TP1_BACKTRACK_H
 
 #include "Solver.h"
-#include "Utils.h"
-#include <list>
 
 class Backtrack : public Solver {
 public:

@@ -1,8 +1,8 @@
-#include <iostream>
-#include <vector>
+#include <stdio.h>
 #include "ImprovedBacktrack.h"
+#include "Utils.h"
 
 int main() {
-    std::cout << ImprovedBacktrack().getSolution(Utils::getListFromInput());
+	printf("%lu\n", ImprovedBacktrack().getSolution(Utils::getListFromInput()));
     return 0;
 }

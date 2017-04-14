@@ -1,5 +1,6 @@
 #include <climits>
 #include "ImprovedBacktrack.h"
+#include "Utils.h"
 
 size_t ImprovedBacktrack::getSolution(const std::vector<int>& list) const {
     size_t best = list.size();

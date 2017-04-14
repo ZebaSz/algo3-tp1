@@ -16,7 +16,7 @@ protected:
     virtual void SetUp() {
         AbstractTest::SetUp();
         best = 0;
-        inputRandBig = getRandomVectorOfSize(30);
+        inputRandBig = getRandomVectorOfSize(40);
         inputRandSmall = getRandomVectorOfSize(10);
     }
 

@@ -1,5 +1,6 @@
 #include <climits>
 #include "Backtrack.h"
+#include "Utils.h"
 
 size_t Backtrack::getSolution(const std::vector<int>& list) const {
     size_t solution = getSubsolution(list, INT_MIN, INT_MAX, 0, 0);
