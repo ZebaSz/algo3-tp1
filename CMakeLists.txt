@@ -11,9 +11,9 @@ set(TEST_FILES test/AbstractTest.h
         test/DynamicTest.cpp
         test/ImprovedBacktrackTest.cpp)
 
-set(PERF_FILES test/PerformanceTest.cpp)
+set(PERF_FILES DataGenerator.cpp)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -47,9 +47,8 @@ endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(correrTests ${SOURCE_FILES} ${TEST_FILES})
-add_executable(correrTestsPerf ${SOURCE_FILES} ${TEST_FILES} ${PERF_FILES})
+add_executable(correrTestsPerf ${SOURCE_FILES} ${PERF_FILES})
 target_link_libraries(correrTests gtest_main gtest)
-target_link_libraries(correrTestsPerf gtest_main gtest)
 
 add_executable(ej1 ${SOURCE_FILES} src/ej1.cpp)
 add_executable(ej2 ${SOURCE_FILES} src/ej2.cpp)
