@@ -12,26 +12,26 @@ size_t ImprovedBacktrack::getSolution(const std::vector<int>& list) const {
 void ImprovedBacktrack::getSubsolutionWithTrim(const std::vector<int> &list,
                                                int lastRed, int lastBlue, size_t index,
                                                size_t cur, size_t &best) const {
-    if(index >= list.size()) {
-        if(cur < best) {
+    if(cur < best) {
+        if(index >= list.size()) {
             Utils::log(DEBUG, "Found a better solution with %d non-painted elements", cur);
             best = cur;
-        }
-    } else if(cur <= best) {
-        int next = list[index];
-        if(lastRed < next) {
-            getSubsolutionWithTrim(list, next, lastBlue, index + 1, cur, best);
-        }
-        if(best == 0) {
-            Utils::log(INFO, "Found OPTIMAL solution; trimming");
         } else {
-            if(lastBlue > next) {
-                getSubsolutionWithTrim(list, lastRed, next, index + 1, cur, best);
+            int next = list[index];
+            if(lastRed < next) {
+                getSubsolutionWithTrim(list, next, lastBlue, index + 1, cur, best);
             }
-            if (best == 0) {
+            if(best == 0) {
                 Utils::log(INFO, "Found OPTIMAL solution; trimming");
             } else {
-                getSubsolutionWithTrim(list, lastRed, lastBlue, index + 1, cur + 1, best);
+                if(lastBlue > next) {
+                    getSubsolutionWithTrim(list, lastRed, next, index + 1, cur, best);
+                }
+                if (best == 0) {
+                    Utils::log(INFO, "Found OPTIMAL solution; trimming");
+                } else {
+                    getSubsolutionWithTrim(list, lastRed, lastBlue, index + 1, cur + 1, best);
+                }
             }
         }
     } else {

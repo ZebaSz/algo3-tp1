@@ -1,0 +1,43 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=3.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[autor]{caratula}
+\usepackage[pdfencoding=auto, colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage[boxed, longend]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\SetKwComment{Comment}{}{}
+\SetKwInput{Pre}{Pre}
+\SetKwInput{Post}{Post}
+
+\begin{document}
+
+% CARATULA
+\materia{Algoritmos y Estructuras de Datos III}
+\submateria{Primer Cuatrimestre de 2017}
+\fecha{\today}
+\titulo{Trabajo Práctico 1}
+
+\integrante{Szperling, Sebastián Ariel}{763/15}{sszperling@dc.uba.ar}
+
+\maketitle
+
+% compilar 2 veces para actualizar las referencias
+\tableofcontents
+
+\pagebreak
+\input{problema.tex}
+
+\pagebreak
+\input{ej1.tex}
+
+\pagebreak
+\input{ej2.tex}
+
+\pagebreak
+\input{ej3.tex}
+
+
+\end{document}

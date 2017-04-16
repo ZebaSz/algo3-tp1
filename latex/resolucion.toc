@@ -1,0 +1,17 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Descripci\IeC {\'o}n del problema}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Descripci\IeC {\'o}n general}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Ejemplos provistos por la c\IeC {\'a}tedra}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Otros ejemplos}{2}{subsection.1.3}
+\contentsline {section}{\numberline {2}Resoluci\IeC {\'o}n por \textit {Backtracking}}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Descripci\IeC {\'o}n del algor\IeC {\'\i }tmo}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Cota de complejidad}{3}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Gr\IeC {\'a}fico de complejidad}{4}{subsection.2.3}
+\contentsline {section}{\numberline {3}Mejora del algoritmo propuesto (poda de resultados)}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Descripci\IeC {\'o}n del algor\IeC {\'\i }tmo}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Cota de complejidad}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Gr\IeC {\'a}fico de complejidad}{6}{subsection.3.3}
+\contentsline {section}{\numberline {4}Resoluci\IeC {\'o}n por \textit {Programaci\IeC {\'o}n Din\IeC {\'a}mica}}{7}{section.4}
+\contentsline {subsection}{\numberline {4.1}Descripci\IeC {\'o}n del algor\IeC {\'\i }tmo}{7}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Cota de complejidad}{7}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Gr\IeC {\'a}fico de complejidad}{8}{subsection.4.3}

@@ -1,0 +1,55 @@
+\section{Descripción del problema}
+
+	\subsection{Descripción general}
+	El problema propuesto pide que se encuentre la menor cantidad "elementos sin pintar" posibles para una lista de números enteros siguiendo el siguiente criterio:
+	
+	\begin{itemize}
+		\item Todos los elementos pueden solo estar pintados de azul, de rojo, o estar sin pintar (mutuamente exclusivos).
+		\item Todos los elementos pintados de rojo deben estar en orden \textit{estrictamente creciente}.
+		\item Todos los elementos pintados de azul deben estar en orden \textit{estrictamente decreciente}.
+	\end{itemize}
+
+	El problema, para una lista dada de números, se considera que tiene una resolución \textbf{óptima} si existe una manera de pintar todos los elementos de dicha lista ya sea de rojo o de azul, es decir, no queda ningún elemento sin pintar.
+
+	\subsection{Ejemplos provistos por la cátedra}
+	
+	Para estos ejemplos, se denotará debajo de cada número con una letra si el mismo se pinta de \textbf{R}ojo, \textbf{A}zul o \textbf{N}o pintado.
+
+	\begin{enumerate}
+		\item Ejemplo con solución óptima
+
+		\begin{tabular}{ c c c c c c c c }
+			0 & 7 & 1 & 2 & 2 & 1 & 5 & 0 \\
+			R & A & R & R & A & A & R & A \\
+		\end{tabular}
+
+		Resultado: 0 (óptima)
+
+		En este ejemplo se pueden encontrar subsecuencias que cumplan los criterios mencionados: una de elementos rojos (0 1 2 5) y otra de elementos azules (7 2 1 0).
+
+		\item Ejemplo sin solución óptima
+
+		\begin{tabular}{ c c c c c c c c c c c c }
+			3 & 11 & 0 & 1 & 3 & 5 & 2 & 4 & 1 & 0 & 9 & 3 \\
+			N & A & R & R & R & A & A & R & A & A & R & N \\
+		\end{tabular}
+
+		Resultado: 2
+
+		En este ejemplo, no existe un par de subsecuencias disjuntas que satisfagan todos los criterios, por lo que el primer y el último 3 son ignorados para maximizar la cantidad de elementos pintados.
+	\end{enumerate}
+
+	\subsection{Otros ejemplos}
+
+	\begin{enumerate}
+		\item Ejemplo con único número
+
+		\begin{tabular}{ c c c c c c c c }
+			0 & 0 & 0 & 0 & 0 & 0 & 0 & ... \\
+			R & A & N & N & N & N & N & ... \\
+		\end{tabular}
+
+		Resultado: longitud de la lista - 2
+
+		Para cualquier longitud de lista, si la misma solo contiene elementos idénticos, solo pueden pintarse 2 elementos (ya que los rojos y los azules deben ser \underline{estrictamente} crecientes y decrecientes respectivamente).
+	\end{enumerate}

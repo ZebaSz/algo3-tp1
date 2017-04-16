@@ -9,7 +9,7 @@
 #include "src/ImprovedBacktrack.h"
 #include "src/Dynamic.h"
 
-#define REPETITIONS 20
+#define REPETITIONS 50
 #define MAXSIZE 50
 
 std::vector<int> getRandomVectorOfSize(unsigned int size) {
@@ -44,7 +44,7 @@ int main() {
     for (unsigned int i = 0; i < MAXSIZE; ++i) {
         inputs.push_back(getRandomVectorOfSize(i));
     }
-
+/*
     remove("data/bt.csv");
     data = fopen("data/bt.csv", "a");
     Backtrack bt;
@@ -55,7 +55,7 @@ int main() {
     data = fopen("data/impbt.csv", "a");
     ImprovedBacktrack impbt;
     getData(&impbt, "Backtrack Mejorado", data, inputs);
-    fclose(data);
+    fclose(data);*/
 
     remove("data/dyn.csv");
     data = fopen("data/dyn.csv", "a");
