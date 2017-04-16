@@ -16,9 +16,9 @@
 		
 		\KwData{Lista, la lista de números a pintar}
 
-		\KwData{UltRojo, la posición del úlitmo rojo que pintamos (si existe)}
+		\KwData{UltRojo, el valor del úlitmo rojo que pintamos (si existe)}
 
-		\KwData{UltAzul, la posición del úlitmo azul que pintamos (si existe)}
+		\KwData{UltAzul, el valor del úlitmo azul que pintamos (si existe)}
 
 		\KwData{Indice, la posición que estamos mirando ahora (0 si recién empezamos)}
 
@@ -26,32 +26,32 @@
 
 		\KwData{Mejor, la mejor solución hasta ahora (el tamaño de la lista si recién empezamos)}
 
-		\If{Actual es menor que Mejor} {
-			\uIf{Indice es igual al tamaño de Lista}{
+		\If{Actual < Mejor} {
+			\uIf{Indice == $|Lista|$}{
 				Llegamos al final de la lista
 
 				Mejor es Actual
 			}
-			\ElseIf{Mejor no es 0}{
-				\If{no existe UltRojo o es menor que Lista[Indice]}{
+			\Else{
+				\If{no existe UltRojo \textbf{or} UltRojo $<$ Lista[Indice]}{
 					Calcular el mejor resultado pintando de Rojo
 
-					Llamada Recursiva cambiando UltRojo por Lista[Indice], aumentando Indice en 1 y conservando los otros parámetros
+					Llamada Recursiva: \{Lista, Lista[Indice], UltAzul, Indice+1, Res, Mejor\}
 
 					La función modifica el valor de Mejor si corresponde
 				}
-				\If{Mejor no es 0}{
-					\If{no existe UltAzul o es mayor que Lista[Indice]}{
+				\If{Mejor $\neq$ 0}{
+					\If{no existe UltAzul \textbf{or} UltAzul $>$ Lista[Indice]}{
 						Calcular el mejor resultado pintando de Azul
 
-						Llamada Recursiva cambiando UltAzul por Lista[Indice], aumentando Indice en 1 y conservando los otros parámetros
+						Llamada Recursiva: \{Lista, UltRojo, Lista[Indice], Indice+1, Res, Mejor\}
 
 						La función modifica el valor de Mejor si corresponde
 					}
-					\If{Mejor no es 0}{
+					\If{Mejor $\neq$ 0}{
 						Calcular el mejor resultado sin pintar
 
-						Llamada Recursiva aumentando Indice y Actual en 1, y conservando los otros parámetros
+						Llamada Recursiva: \{Lista, UltRojo, UltAzul, Indice+1, Res+1, Mejor\}
 
 						La función modifica el valor de Mejor si corresponde
 					}

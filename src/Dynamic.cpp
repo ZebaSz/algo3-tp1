@@ -58,11 +58,9 @@ Dynamic::state Dynamic::getSubsolution(const std::vector<int>& list, Dynamic::st
 size_t Dynamic::findPrevRed(const std::vector<int>& list, state** memory,
                             size_t r, size_t b) const {
     size_t prevR = list.size();
-    size_t bestAcum = list.size();
     for (size_t i = 0; i < r; ++i) {
-        if(i != b && list[i] < list[r] && getSubsolution(list, memory, i, b).acum <= bestAcum) {
+        if(i != b && list[i] < list[r] && getSubsolution(list, memory, i, b).acum <= getSubsolution(list, memory, prevR, b).acum) {
             prevR = i;
-            bestAcum = getSubsolution(list, memory, i, b).acum;
         }
     }
     if(prevR < list.size()) {
@@ -77,11 +75,9 @@ size_t Dynamic::findPrevRed(const std::vector<int>& list, state** memory,
 size_t Dynamic::findPrevBlue(const std::vector<int>& list, state** memory,
                              size_t r, size_t b) const {
     size_t prevB = list.size();
-    size_t bestAcum = list.size();
     for (size_t i = 0; i < b; ++i) {
-        if(i != r && list[i] > list[b] && getSubsolution(list, memory, r, i).acum <= bestAcum) {
+        if(i != r && list[i] > list[b] && getSubsolution(list, memory, r, i).acum <= getSubsolution(list, memory, r, prevB).acum) {
             prevB = i;
-            bestAcum = getSubsolution(list, memory, r, i).acum;
         }
     }
     if(prevB < list.size()) {

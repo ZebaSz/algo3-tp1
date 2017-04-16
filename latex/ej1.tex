@@ -6,49 +6,51 @@
 	\begin{algorithm}[H]
 		\KwData{Lista, la lista de números a pintar}
 
-		\KwData{UltRojo, la posición del úlitmo rojo que pintamos (si existe)}
+		\KwData{UltRojo, el valor del úlitmo rojo que pintamos (si existe)}
 
-		\KwData{UltAzul, la posición del úlitmo azul que pintamos (si existe)}
+		\KwData{UltAzul, el valor del úlitmo azul que pintamos (si existe)}
 
-		\KwData{Indice, la posición que estamos mirando ahora (0 si recién empezamos)}
+		\KwData{Indice, la posición que estamos mirando ahora}
 
-		\KwData{Res, la cantidad de elemntos no pintados hasta ahora (0 si recién empezamos)}
+		\KwData{Res, la cantidad de elementos no pintados hasta ahora}
 
-		\eIf{Indice es igual al tamaño de Lista}{
+		\eIf{Indice == $|Lista|$}{
 			Llegamos al final de la lista, no hacer nada
 		}{
 			Calcular el mejor resultado sin pintar
 
-			Llamada Recursiva aumentando Indice y Res en 1, y conservando los otros parámetros
+			Llamada Recursiva: \{Lista, UltRojo, UltAzul, Indice+1, Res+1\}
 
 			Guardar ese resultado como Res
 
-			\If{no existe UltRojo o es menor que Lista[Indice]}{
+			\If{no existe UltRojo \textbf{or} UltRojo $<$ Lista[Indice]}{
 				Calcular el mejor resultado pintando de Rojo
 
-				Llamada Recursiva cambiando UltRojo por Lista[Indice], aumentando Indice en 1 y conservando los otros parámetros
+				Llamada Recursiva: \{Lista, Lista[Indice], UltAzul, Indice+1, Res\}
 
 				Si ese resultado es menor que Res, guardarlo como Res
 			}
-			\If{no existe UltAzul o es mayor que Lista[Indice]}{
+			\If{no existe UltAzul \textbf{or} UltAzul $>$ Lista[Indice]}{
 				Calcular el mejor resultado pintando de Azul
 
-				Llamada Recursiva cambiando UltAzul por Lista[Indice], aumentando Indice en 1 y conservando los otros parámetros
+				Llamada Recursiva: \{Lista, UltRojo, Lista[Indice], Indice+1, Res\}
 
 				Si ese resultado es menor que Res, guardarlo como Res
 			}
 		}
 
-		\KwResult{Res}
+		\KwResult{Res, la menor de todas las sub-soluciones}
 	\end{algorithm}
 
 	Cabe destacar que el orden en que se calculan los posibles resultados no es relevante, en tanto se conserve el menor de todos.
+
+	En la implementación propuesta, UltRojo y UltAzul comienzan con el menor y mayor valor representable de entero respectivamente, a modo de simplificar la comparación.
 
 	\subsection{Cota de complejidad}
 
 	El algoritmo propuesto realiza hasta tres llamadas recursivas en cada paso (asumiendo que el próximo número se puede pintar de cualquier color). Esto siempre es cierto para los primeros dos elementos.
 
-	En el mejor caso, en cualquier paso se llama solo una llamada recursiva (no se puede pintar el número).
+	En el mejor caso, un paso cualquiera llama a solo una llamada recursiva (no se puede pintar el número).
 
 	En cualquier llamada recursiva, el tamaño del problema a resolver disminuye en 1 (se avanza/pinta un solo número).
 
@@ -57,13 +59,15 @@
 	T(BT(n)) =
 		\begin{cases}
 			\text{1,} &\quad\text{si n == 0}\\
-			\text{3 T(BT(n-1)),} &\quad\text{si no} \\
+			\text{3 T(BT(n-1)) + O(1),} &\quad\text{si no} \\
 		\end{cases}
 	\]
 
 	donde n es la cantidad de números restantes, es decir, $|Lista| - Indice$.
 
-	Como, en peor caso, el algorítmo realiza 3 llamadas recursivas n veces, la complejidad resultante es \textbf{O($3^n$)}, donde n es el largo de la lista de números de entrada (es decir, cuántos numeros contiene la lista).
+	Como, en peor caso, el algorítmo realiza 3 llamadas recursivas n veces, la complejidad resultante es \textbf{O($3^n$)}, donde n es el largo de la lista de números de entrada (es decir, cuántos numeros contiene la lista). Este es el espacio de soluciones completo, ya que cualquiera de los n elemento puede tener uno de 3 estados (existen $3^n$ combinaciones distintas).
+
+	El caso ideal para el algoritmo es una lista de números idénticos, dando una complejidad en mejor caso de $\Omega(n^2)$, ya que solo se deben pintar 2 elementos de color distinto y hay n posiciones válidas para cada uno de ellos.
 
 	\pagebreak
 	\subsection{Gráfico de complejidad}

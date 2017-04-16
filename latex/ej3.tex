@@ -5,8 +5,6 @@
 
 	En el algoritmo que se propone, la memoria toma forma de arreglo de dos dimensiones, donde cada dimensión expresa la posición en la lista donde se encuentra el último elemento pintado de uno u otro color. Al calcular un casillero, se toma el color más avanzado y se recorren los anteriores para encontrar la mejor subsolución.
 
-	Cada dimensión de la memoria tiene de un casillero de largo extra para considerar el caso en que no se han pintado todavía casilleros de ese color. La memoria almacena si ya fue calculada y el mejor resultado posible para la misma.
-
 	Se debe considerar que no se calcula ninguno de los valores correspondientes a la diagonal de este arreglo, es decir, posiciones que representarían que un mismo elemento está pintado de ambos colores, ya que esto no es válido.
 
 	\begin{algorithm}[H]
@@ -21,28 +19,40 @@
 		\KwData{Azul, la posición del azul que estamos calculando ahora}
 
 		\If{Memoria[Rojo][Azul] no fue calculado todavía}{
-			\uIf{Rojo y Azul son iguales al tamaño de Lista}{
+			\uIf{Rojo == Azul == $|Lista|$}{
 				Estamos en el caso base (nada pintado)
 
-				Guardamos en Memoria[Rojo][Azul] el tamaño de Lista (todos sin pintar) y lo marcamos como calculado
+				Guardamos en Memoria[Rojo][Azul] |Lista| (todos sin pintar) y lo marcamos como calculado
 			}
-			\uElseIf{Azul es igual al tamaño de Lista \textbf{O} Rojo es mayor a Azul}{
+			\uElseIf{Azul == |$Lista|$ \textbf{or} Rojo $>$ Azul}{
 				Buscamos el mejor valor para los rojos anteriores.
 
-				Llamadas recursivas para i entre 0 y Rojo, utilizando i como Rojo.
+				\For{i $\leftarrow$ 0 \KwTo Rojo - 1}{
+					\If{i $\neq$ Azul}{
+						Llamada recursiva: \{Lista, Memoria, i, Azul\}
+					}
+				}
 
-				(También se llama con tamaño de Lista como Rojo)
+				Llamadas recursiva: \{Lista, Memoria, $|Lista|$, Azul\} (caso sin pintar rojos)
 
-				Guardamos en Memoria[Rojo][Azul] el mejor valor menos 1 (fue pintado Rojo) y lo marcamos como calculado
+				Sea Min el menor resultado de todas las llamadas recursivas
+
+				Guardamos en Memoria[Rojo][Azul] Min - 1 (fue pintado Rojo) y lo marcamos como calculado
 			}
 			\Else{
 				Buscamos el mejor valor para los azules anteriores.
 
-				Llamadas recursivas para i entre 0 y Azul, utilizando i como Azul.
+				\For{i $\leftarrow$ 0 \KwTo Azul - 1}{
+					\If{i $\neq$ Rojo}{
+						Llamada recursiva: \{Lista, Memoria, Rojo, i\}
+					}
+				}
 
-				(También se llama con tamaño de Lista como Azul)
+				Llamada recursiva: \{Lista, Memoria, Rojo, $|Lista|$\} (caso sin pintar azules)
 
-				Guardamos en Memoria[Rojo][Azul] el mejor valor menos 1 (fue pintado Azul) y lo marcamos como calculado
+				Sea Min el menor resultado de todas las llamadas recursivas
+
+				Guardamos en Memoria[Rojo][Azul] Min - 1 (fue pintado Azul) y lo marcamos como calculado
 			}
 		}
 
@@ -50,6 +60,8 @@
 	\end{algorithm}
 
 	En la implementación provista, la memoria se rellena de forma \textit{bottom-up}, es decir los casos más básicos primero, pero el orden no altera el producto ya que en cada paso la llamada recursiva asegura que cualquier posición que se necesite esté calculada, y solo se calcula una vez.
+
+	A su vez, cada dimensión de la memoria tiene de un casillero de largo extra para considerar el caso en que no se han pintado todavía casilleros de ese color. La memoria almacena si ya fue calculada y el mejor resultado posible para la misma.
 
 	\subsection{Cota de complejidad}
 

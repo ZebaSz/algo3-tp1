@@ -15,7 +15,8 @@ size_t Backtrack::getSubsolution(const std::vector<int> &list, int lastRed,
         solution = cur;
         Utils::log(DEBUG, "Found solution with %d non-painted elements", solution);
     } else {
-        solution = list.size();
+        solution = getSubsolution(list, lastRed, lastBlue, index + 1, cur + 1);
+
         int next = list[index];
         if(lastRed < next) {
             size_t subsolutionRed = getSubsolution(list, next, lastBlue, index + 1, cur);
@@ -25,8 +26,6 @@ size_t Backtrack::getSubsolution(const std::vector<int> &list, int lastRed,
             size_t subsolutionBlue = getSubsolution(list, lastRed, next, index + 1, cur);
             solution = subsolutionBlue < solution ? subsolutionBlue : solution;
         }
-        size_t subsolutionNone = getSubsolution(list, lastRed, lastBlue, index + 1, cur + 1);
-        solution = subsolutionNone < solution ? subsolutionNone : solution;
     }
     return solution;
 }
