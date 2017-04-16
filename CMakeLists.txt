@@ -17,6 +17,6 @@ target_link_libraries (ej2 algo3-tp1-base)
 add_executable(ej3 src/ej3.cpp)
 target_link_libraries (ej3 algo3-tp1-base)
 
-add_subdirectory(test)
+#add_subdirectory(test)
 
-add_subdirectory(data)
+#add_subdirectory(data)

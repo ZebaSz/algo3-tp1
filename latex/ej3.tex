@@ -28,14 +28,14 @@
 				Buscamos el mejor valor para los rojos anteriores.
 
 				\For{i $\leftarrow$ 0 \KwTo Rojo - 1}{
-					\If{i $\neq$ Azul}{
+					\If{i $\neq$ Azul \textbf{and} Lista[i] < Lista[Rojo]}{
 						Llamada recursiva: \{Lista, Memoria, i, Azul\}
 					}
 				}
 
 				Llamadas recursiva: \{Lista, Memoria, $|Lista|$, Azul\} (caso sin pintar rojos)
 
-				Sea Min el menor resultado de todas las llamadas recursivas
+				Sea Min el menor resultado de todas las llamadas recursivas que realizamos
 
 				Guardamos en Memoria[Rojo][Azul] Min - 1 (fue pintado Rojo) y lo marcamos como calculado
 			}
@@ -43,20 +43,20 @@
 				Buscamos el mejor valor para los azules anteriores.
 
 				\For{i $\leftarrow$ 0 \KwTo Azul - 1}{
-					\If{i $\neq$ Rojo}{
+					\If{i $\neq$ Rojo \textbf{and} Lista[i] > Lista[Azul]}{
 						Llamada recursiva: \{Lista, Memoria, Rojo, i\}
 					}
 				}
 
 				Llamada recursiva: \{Lista, Memoria, Rojo, $|Lista|$\} (caso sin pintar azules)
 
-				Sea Min el menor resultado de todas las llamadas recursivas
+				Sea Min el menor resultado de todas las llamadas recursivas que realizamos
 
 				Guardamos en Memoria[Rojo][Azul] Min - 1 (fue pintado Azul) y lo marcamos como calculado
 			}
 		}
 
-		\KwResult{Memoria[Rojo][Azul]}
+		\KwResult{Memoria[Rojo][Azul], la mejor subsolución con Rojo y Azul como últimos elementos pintados de cada color (se garantiza que esa memoria fue calculada)}
 	\end{algorithm}
 
 	En la implementación provista, la memoria se rellena de forma \textit{bottom-up}, es decir los casos más básicos primero, pero el orden no altera el producto ya que en cada paso la llamada recursiva asegura que cualquier posición que se necesite esté calculada, y solo se calcula una vez.
