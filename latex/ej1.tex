@@ -3,6 +3,8 @@
 
 	La solución por Bactracking emplea recursividad en cada paso, y recorre el espacio de soluciones como si el mismo fuese un arbol en preorden.
 
+	A continuación se propone un algoritmo para las llamadas recursivas. Para el caso inicial, se toma $Indice = 0$ y $Res = 0$.
+
 	\begin{algorithm}[H]
 		\KwData{Lista, la lista de números a pintar}
 
@@ -68,6 +70,8 @@
 	Como, en peor caso, el algorítmo realiza 3 llamadas recursivas n veces, la complejidad resultante es \textbf{O($3^n$)}, donde n es el largo de la lista de números de entrada (es decir, cuántos numeros contiene la lista). Este es el espacio de soluciones completo, ya que cualquiera de los n elemento puede tener uno de 3 estados (existen $3^n$ combinaciones distintas).
 
 	El caso ideal para el algoritmo es una lista de números idénticos, dando una complejidad en mejor caso de $\Omega(n^2)$, ya que solo se deben pintar 2 elementos de color distinto y hay n posiciones válidas para cada uno de ellos.
+
+	Otro caso que vale la pena destacar es que, si la lista es estrictamente creciente/decreciente, la complejidad es de orden $\Omega(n * 2^n)$, ya que un solo elemento puede ser pintado del color opuesto, y todos los demás pueden o no ser pintados o ser pintados del color ideal (rojo si es creciente o azul en caso opuesto).
 
 	\pagebreak
 	\subsection{Gráfico de complejidad}

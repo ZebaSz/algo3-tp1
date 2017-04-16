@@ -36,7 +36,7 @@
 
 		Resultado: 2
 
-		En este ejemplo, no existe un par de subsecuencias disjuntas que satisfagan todos los criterios, por lo que el primer y el último 3 son ignorados para maximizar la cantidad de elementos pintados.
+		En este ejemplo no existe un par de subsecuencias disjuntas que satisfagan todos los criterios, por lo que el primer y el último 3 son ignorados para maximizar la cantidad de elementos pintados.
 	\end{enumerate}
 
 	\subsection{Otros ejemplos}
@@ -52,4 +52,27 @@
 		Resultado: longitud de la lista - 2
 
 		Para cualquier longitud de lista, si la misma solo contiene elementos idénticos, solo pueden pintarse 2 elementos (ya que los rojos y los azules deben ser \underline{estrictamente} crecientes y decrecientes respectivamente).
+
+		En general, sea $l$ una lista cualquiera y sea $f(l)$ su solución,  $0 \leq f(l) \leq max(|l| - 2, 0)$ (en otras palabras, si la lista tiene más de dos elementos, la solución siempre incluye por lo menos dos elementos pintados).
+
+		\item Ejemplo con un solo color
+
+		\begin{tabular}{ c c c c c c c c }
+			0 & 1 & 2 & 3 & 4 & 5 & 6 & ... \\
+			R & R & R & R & R & R & R & ... \\
+		\end{tabular}
+
+		Resultado: 0 (óptima)
+
+		Para cualquier longitud de lista, si la misma es estrictamente creciente todos los elementos pueden pintarse del mismo color. El problema no requiere que haya elementos pintados de ambos colores.
+
+		Esta regla aplica para cualquier secuencia $l$ con elementos $l_1, l_2, ..., l_n$ tales que
+
+		\begin{center}
+			$(\forall i, j \leftarrow i < j)(l_i < l_j)$
+		\end{center}
+
+		es decir, para toda lista estrictamente creciente. La regla vale para el caso opuesto (la lista es estrictamente decreciente), pintando de azul en lugar de rojo.
+
+		Para este ejemplo también existe una cantidad de soluciones igual a la longitud de la lista en las que una de las posiciones está pintada del otro color (solo uno puede estar pintado de ese color).
 	\end{enumerate}

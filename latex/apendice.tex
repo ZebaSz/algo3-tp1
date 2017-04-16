@@ -1,0 +1,80 @@
+\section{Apéndices}
+	\subsection{Apéndice I: generación de datos}
+	Para poder analizar las complejidades de los algoritmos propuestos, se utilizaron las siguientes herramientas para generar mediciones y graficar datos:
+
+	\begin{itemize}
+		\item Un generador de listas aleatorias basadas en \texttt{std::rand()} (parte de la biblioteca estándar de C++).
+
+		\begin{algorithm}[H]
+		\NoCaptionOfAlgo
+
+		\For{i $\leftarrow$ 0 \KwTo n - 1}{
+			Lista[i] $\leftarrow$ std::rand()
+		}
+		\end{algorithm}
+
+		Cada una de estas listas se guardo en una memoria temporal para poder probar los tres algoritmos con el mismo input.
+
+		\item Un generador de listas secuenciales para el mejor caso de Backtracking con podas
+
+		\begin{algorithm}[H]
+		\NoCaptionOfAlgo
+		
+
+		\For{i $\leftarrow$ 0 \KwTo n - 1}{
+			Lista[i] $\leftarrow$ i()
+		}
+		\end{algorithm}
+
+		Este generador se usa en partiuclar para el ejercicio 2. Si bien las entradas fueron probadas en otros algoritmos, solo el Backtracking con podas puede sacar mayor provecho de esta entrada, y tiene un impacto relevante y fácil de medir en su performance.
+
+		\item Mediciones de tiempo con \texttt{std::chrono} (parte de la biblioteca estándar de C++11).
+
+		\begin{algorithm}[H]
+		\NoCaptionOfAlgo
+
+		Sea Mejor el mejor tiempo medido (todavía no inicializado)
+		\For{i $\leftarrow$ 0 \KwTo Repeticiones - 1}{
+			Comienzo $\leftarrow$ \texttt{std::chrono::high\_resolution\_clock::now()}
+
+			Invocar Resolver(lista) (correspondiente al algoritmo)
+
+			Fin $\leftarrow$ \texttt{std::chrono::high\_resolution\_clock::now()}
+
+			Actual $\leftarrow$ \texttt{std::chrono::duration\_cast<std::chrono::microseconds>(Fin - Comienzo).count()}
+
+			\If{Mejor no está inicializado \textbf{or} Actual $<$ Mejor}{
+
+				Mejor $\leftarrow$ Actual
+			}
+		}
+		\end{algorithm}
+
+		Cada algoritmo fue probado varias veces con cada entrada, conservando solo el valor de tiempo menor para reducir el ruido por procesos ajenos al problema.
+
+		La unidad de medición preferida fue microsegundos (\texttt{std::chrono::microseconds}, $seg \times 10^{-6}$), pero también se utilizó nanosegundos en algunas ocasiones, y los gráficos fueron escalados a segundos cuando correspondía por la dimensión de las variables.
+
+		\item Graficado con \texttt{matplotlib.pyplot} y \texttt{pandas} (con Python y Jupyter Notebook)
+
+		Se utilizaron los DataFrames de Pandas para el manejo de datos (guardados en \texttt{.csv}) y el graficado, en conjunto con matplotlib. Por el escalado a segundos, algunos detalles de los ejes se manejaron a mano con matplotlib.
+
+	\end{itemize}
+
+	\subsection{Apéndice II: herramientas de compilación y testing}
+	Durante el desarrollo se utilizaron las siguientes herramientas:
+
+	\begin{itemize}
+		\item CMake
+
+		Se decidió utilizar CMake para la compilación por su simplicidad y compatibilidad con otras herramientras. Junto con el código se provee el archivo \texttt{CMakeLists.txt} para compilar el mismo.
+
+		\item Google Test
+
+		Para generar tests unitarios con datos reutilizables se usó Google Test. Dichos archivos eran importados por otro \texttt{CMakeLists.txt} y no están incluídos en la presente entrega del trabajo práctico.
+
+		\item Namespace \texttt{Utils}
+
+		Dentro de \texttt{Utils.h} se definieron 2 funciones útiles para el trabajo práctico: una de ellas crea un vector desde el stdin, para ser usado en los tres ejercicios; la otra es una función de logging que fue utilizada al programar para detectar errores y ver otros detalles del proceso.
+
+		La función \texttt{log} sigue estando incluída en los algoritmos, pero su funcionalidad se encuentra apagada por un \texttt{\#define} y no debería generar ningún costo adicional (ya que usa printf por detrás y no genera el output salvo que sea necesario).
+	\end{itemize}

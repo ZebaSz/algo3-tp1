@@ -9,8 +9,8 @@
 #include "../src/ImprovedBacktrack.h"
 #include "../src/Dynamic.h"
 
-#define REPETITIONS 10
-#define MAXSIZE 40
+#define REPETITIONS 500
+#define MAXSIZE 500
 
 std::vector<int> getRandomVectorOfSize(unsigned int size) {
     std::srand(std::time(NULL));
@@ -21,18 +21,30 @@ std::vector<int> getRandomVectorOfSize(unsigned int size) {
     return randVector;
 }
 
+std::vector<int> getIncreasingVector(unsigned int size) {
+    std::srand(std::time(NULL));
+    std::vector<int> randVector;
+    for (unsigned int i = 0; i < size; ++i) {
+        randVector.push_back(i);
+    }
+    return randVector;
+}
+
+
 void getData(Solver *solver, const char *name, FILE *data, std::vector<std::vector<int> > &inputs) {
-    fprintf(data, "Nombre,Tamaño,Microsegundos\n");
+    fprintf(data, "Nombre,Tamaño,Nanosegundos\n");
     for (unsigned int i = 0; i < MAXSIZE; ++i) {
-        std::vector<int> input = inputs[i];
-        printf("Running with size %d for solver %s\n", i, name);
+        printf("Running with size %d for solver %s\n", i , name);
+        long best = -1;
         for (int j = 0; j < REPETITIONS; ++j) {
             auto begin = std::chrono::high_resolution_clock::now();
-            solver->getSolution(input);
+            solver->getSolution(inputs[i]);
             auto end = std::chrono::high_resolution_clock::now();
-            fprintf(data, "%s,%d,%ld\n", name, i,
-                    std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
+            if(best == -1 || best > std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count()) {
+                best = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+            }
         }
+        fprintf(data, "%s,%d,%ld\n", name, i, best);
     }
 }
 
@@ -42,26 +54,26 @@ int main() {
     std::vector< std::vector <int> > inputs;
 
     for (unsigned int i = 0; i < MAXSIZE; ++i) {
-        inputs.push_back(getRandomVectorOfSize(i));
+        inputs.push_back(getIncreasingVector(i));
     }
-
-    remove("data/bt.csv");
-    data = fopen("data/bt.csv", "a");
+    /*
+    remove("bt.csv");
+    data = fopen("bt.csv", "a");
     Backtrack bt;
     getData(&bt, "Backtrack", data, inputs);
-    fclose(data);
+    fclose(data);*/
 
-    remove("data/impbt.csv");
-    data = fopen("data/impbt.csv", "a");
+    remove("impbt-inc.csv");
+    data = fopen("impbt-inc.csv", "a");
     ImprovedBacktrack impbt;
     getData(&impbt, "Backtrack Mejorado", data, inputs);
     fclose(data);
-
-    remove("data/dyn.csv");
-    data = fopen("data/dyn.csv", "a");
+/*
+    remove("dyn-inc.csv");
+    data = fopen("dyn-inc.csv", "a");
     Dynamic dyn;
     getData(&dyn, "Programación Dinámica", data, inputs);
-    fclose(data);
+    fclose(data);*/
 
     return 0;
 }
